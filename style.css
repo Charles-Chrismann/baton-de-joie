@@ -4,13 +4,17 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overscroll-behavior-y: contain;
+    background-color: green;
+}
+
 body {
     position: relative;
     min-height: calc(var(--vh, 1vh) * 100);
     display: grid;
     place-items: center;
     overflow: hidden;
-    overscroll-behavior-y: contain;
 }
 
 .joystick__container {
