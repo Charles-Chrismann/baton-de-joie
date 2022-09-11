@@ -11,6 +11,8 @@ function radians_to_degrees(radians)
   return radians * (180/pi);
 }
 
+let timer = true
+
 let joystickContainer = document.querySelector(".joystick__container")
 let joystickContainerCoordinates = joystickContainer.getBoundingClientRect()
 let joystickContainerMiddle = {
@@ -39,11 +41,15 @@ joystick.addEventListener("touchmove", (e) => {
     joystick.style.backgroundColor = "red"
     let h = Math.hypot(e.touches[0].clientX - joystickContainerMiddle.x, e.touches[0].clientY - joystickContainerMiddle.y)
     let autreCote = Math.abs(joystickCoordinates.x - e.touches[0].clientX)
-    console.log(radians_to_degrees(Math.cos(autreCote / h)))
+    // console.log(radians_to_degrees(Math.cos(autreCote / h)))
     if(Math.hypot(e.touches[0].clientX - joystickContainerMiddle.x, e.touches[0].clientY - joystickContainerMiddle.y) > joystickContainer.offsetHeight / 2) return
-    console.log("meh")
+    if(!timer) return
     joystick.style.left = e.touches[0].clientX - (joystickContainerCoordinates.x + joystickWidth / 2) + "px"
     joystick.style.top = e.touches[0].clientY - (joystickContainerCoordinates.y + joystickHeight / 2) + "px"
+    timer = false;
+    setTimeout(() => {
+        timer = true;
+    }, 1000 / 60)
 })
 
 joystick.addEventListener("touchend", (e) => {
